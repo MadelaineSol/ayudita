@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - main
-      - master
 
 permissions:
   contents: read
@@ -22,22 +21,21 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: npm
-          cache-dependency-path: Ayudita-lista-para-generar-APK-GITHUB/ayv3/mobile/package-lock.json
+          cache: "npm"
+          cache-dependency-path: "Ayudita-lista-para-generar-APK-GITHUB/ayv3/mobile/package-lock.json"
 
       - name: Configurar Java 17
         uses: actions/setup-java@v4
         with:
-          distribution: temurin
+          distribution: "temurin"
           java-version: "17"
-          
 
       - name: Configurar Android SDK
         uses: android-actions/setup-android@v3
 
       - name: Instalar Android API 35
         run: |
-          yes | sdkmanager --licenses >/dev/null || true
+          yes | sdkmanager --licenses > /dev/null || true
           sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
 
       - name: Instalar dependencias
@@ -46,46 +44,23 @@ jobs:
           npm config set registry https://registry.npmjs.org/
           npm ci
 
-      - name: Copiar frontend
+      - name: Preparar proyecto Android
         working-directory: Ayudita-lista-para-generar-APK-GITHUB/ayv3/mobile
-        run: npm run sync:www
+        run: |
+          npm run sync:www
 
-    - name: Crear y sincronizar Android
-  working-directory: Ayudita-lista-para-generar-APK-GITHUB/ayv3/mobile
-  run: |
-    if [ ! -d "android" ]; then
-      npx cap add android
-    fi
+          if [ ! -d "android" ]; then
+            npx cap add android
+          fi
 
-    npx cap sync android
+          npx cap sync android
 
-    python3 - <<'PY'
-    from pathlib import Path
-    import re
+      - name: Permitir HTTP para pruebas locales
+        working-directory: Ayudita-lista-para-generar-APK-GITHUB/ayv3/mobile
+        run: |
+          python3 -c 'from pathlib import Path; p=Path("android/app/src/main/AndroidManifest.xml"); s=p.read_text(encoding="utf-8"); s=s.replace("android:usesCleartextTraffic=\"false\"", "android:usesCleartextTraffic=\"true\"") if "android:usesCleartextTraffic=" in s else s.replace("<application", "<application\n        android:usesCleartextTraffic=\"true\"", 1); p.write_text(s, encoding="utf-8")'
 
-    manifest = Path("android/app/src/main/AndroidManifest.xml")
-
-    contenido = manifest.read_text(encoding="utf-8")
-
-    if "android:usesCleartextTraffic=" in contenido:
-        contenido = re.sub(
-            r'android:usesCleartextTraffic="[^"]*"',
-            'android:usesCleartextTraffic="true"',
-            contenido
-        )
-    else:
-        contenido = contenido.replace(
-            "<application",
-            '<application\n        android:usesCleartextTraffic="true"',
-            1
-        )
-
-    manifest.write_text(contenido, encoding="utf-8")
-
-    print("HTTP local habilitado correctamente en AndroidManifest.xml")
-    PY
-
-      - name: Compilar APK
+      - name: Compilar APK de prueba
         working-directory: Ayudita-lista-para-generar-APK-GITHUB/ayv3/mobile/android
         run: |
           chmod +x gradlew
