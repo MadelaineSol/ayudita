@@ -1,4 +1,4 @@
 {
-  "apiUrl": "http://192.168.0.14:8080",
+  "apiUrl": "http://192.168.0.14:80",
   "environment": "development"
 }
