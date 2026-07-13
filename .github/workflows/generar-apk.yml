@@ -50,13 +50,40 @@ jobs:
         working-directory: Ayudita-lista-para-generar-APK-GITHUB/ayv3/mobile
         run: npm run sync:www
 
-      - name: Crear y sincronizar Android
-        working-directory: Ayudita-lista-para-generar-APK-GITHUB/ayv3/mobile
-        run: |
-          if [ ! -d "android" ]; then
-            npx cap add android
-          fi
-          npx cap sync android
+    - name: Crear y sincronizar Android
+  working-directory: Ayudita-lista-para-generar-APK-GITHUB/ayv3/mobile
+  run: |
+    if [ ! -d "android" ]; then
+      npx cap add android
+    fi
+
+    npx cap sync android
+
+    python3 - <<'PY'
+    from pathlib import Path
+    import re
+
+    manifest = Path("android/app/src/main/AndroidManifest.xml")
+
+    contenido = manifest.read_text(encoding="utf-8")
+
+    if "android:usesCleartextTraffic=" in contenido:
+        contenido = re.sub(
+            r'android:usesCleartextTraffic="[^"]*"',
+            'android:usesCleartextTraffic="true"',
+            contenido
+        )
+    else:
+        contenido = contenido.replace(
+            "<application",
+            '<application\n        android:usesCleartextTraffic="true"',
+            1
+        )
+
+    manifest.write_text(contenido, encoding="utf-8")
+
+    print("HTTP local habilitado correctamente en AndroidManifest.xml")
+    PY
 
       - name: Compilar APK
         working-directory: Ayudita-lista-para-generar-APK-GITHUB/ayv3/mobile/android
