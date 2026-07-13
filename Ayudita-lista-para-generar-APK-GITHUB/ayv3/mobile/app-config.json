@@ -1,5 +1,6 @@
 {
-  "apiUrl": "http://10.0.2.2:8080",
-  "environment": "development",
-  "notes": "Android Emulator: http://10.0.2.2:8080 | Celular físico: http://IP-DE-TU-PC:8080 | Producción: https://api.tudominio.com"
+ {
+  "apiUrl": "http://192.168.0.15:8080",
+  "environment": "development"
+}
 }
