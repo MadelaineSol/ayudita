@@ -1,0 +1,29 @@
+{
+  "appId": "app.ayudita.mobile",
+  "appName": "Ayudita",
+  "webDir": "www",
+  "backgroundColor": "#FFFBF4",
+  "server": {
+    "androidScheme": "https"
+  },
+  "ios": {
+    "contentInset": "always"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 1200,
+      "backgroundColor": "#FFFBF4",
+      "showSpinner": false
+    },
+    "PushNotifications": {
+      "presentationOptions": [
+        "badge",
+        "sound",
+        "alert"
+      ]
+    }
+  },
+  "android": {
+    "allowMixedContent": true
+  }
+}

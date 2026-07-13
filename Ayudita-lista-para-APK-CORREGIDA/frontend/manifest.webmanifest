@@ -1,0 +1,13 @@
+{
+  "name": "Ayudita",
+  "short_name": "Ayudita",
+  "description": "Gente buena que te da una mano 💛",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#FFFBF4",
+  "theme_color": "#FFB25E",
+  "lang": "es",
+  "icons": [
+    { "src": "assets/icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

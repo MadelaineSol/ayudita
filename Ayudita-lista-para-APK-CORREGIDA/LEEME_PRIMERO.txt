@@ -1,0 +1,20 @@
+AYUDITA - PROYECTO LISTO PARA GENERAR APK
+=========================================
+
+1) Instala Node.js y Android Studio.
+2) Entra en la carpeta mobile.
+3) Ejecuta 01_CONFIGURAR_API.bat.
+4) Ejecuta 02_PREPARAR_Y_ABRIR_ANDROID.bat.
+5) Para generar la APK de prueba, ejecuta 03_GENERAR_APK_DEBUG.bat.
+6) La APK aparecera en mobile\dist\Ayudita-debug.apk.
+
+La URL predeterminada es http://10.0.2.2:8080 y sirve para el emulador Android.
+Para un celular real, usa http://IP-DE-TU-PC:8080.
+Para publicar, primero sube el backend a un servidor HTTPS y configura esa URL.
+
+Guia detallada: GENERAR_APK_WINDOWS.md
+
+IMPORTANTE:
+- El flujo de pagos actual es simulado; no cobra dinero real.
+- Push requiere Firebase y google-services.json.
+- Para Play Store debes generar un archivo .aab firmado.

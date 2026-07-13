@@ -1,0 +1,10 @@
+# Ayudita API - Apache rewrite hacia el front controller
+Options -Indexes
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [QSA,L]
+
+# Bloquear acceso a archivos sensibles
+<FilesMatch "\.(env|sql|log|md)$">
+    Require all denied
+</FilesMatch>

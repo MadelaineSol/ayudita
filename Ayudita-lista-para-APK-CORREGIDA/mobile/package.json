@@ -1,0 +1,33 @@
+{
+  "name": "ayudita-mobile",
+  "version": "1.0.0",
+  "description": "Ayudita - app móvil (Capacitor) para Android e iOS",
+  "private": true,
+  "scripts": {
+    "api:set": "node set-api.js",
+    "sync:www": "node copy-www.js",
+    "prepare:android": "npm run sync:www && npx cap sync android",
+    "android:add": "npx cap add android",
+    "android:open": "npm run prepare:android && npx cap open android",
+    "android:run": "npm run prepare:android && npx cap run android",
+    "apk:debug": "node build-android.js apk",
+    "aab:release": "node build-android.js aab",
+    "ios:add": "npx cap add ios",
+    "ios:open": "npm run sync:www && npx cap sync ios && npx cap open ios"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/camera": "^6.0.0",
+    "@capacitor/core": "^6.0.0",
+    "@capacitor/filesystem": "^6.0.0",
+    "@capacitor/geolocation": "^6.0.0",
+    "@capacitor/ios": "^6.0.0",
+    "@capacitor/push-notifications": "^6.0.0",
+    "@capacitor/share": "^6.0.0",
+    "@capacitor/splash-screen": "^6.0.0",
+    "@capacitor/status-bar": "^6.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.0.0"
+  }
+}

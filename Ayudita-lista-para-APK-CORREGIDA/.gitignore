@@ -1,0 +1,23 @@
+# Entornos y secretos
+.env
+backend/.env
+
+# Dependencias
+node_modules/
+vendor/
+
+# Artefactos de build móvil
+mobile/www/
+mobile/android/
+mobile/ios/
+
+# Datos en tiempo de ejecución
+backend/storage/logs/*.log
+backend/storage/uploads/*
+!backend/storage/uploads/.gitkeep
+backend/storage/cache/*
+!backend/storage/cache/.gitkeep
+
+# Sistema
+.DS_Store
+Thumbs.db
