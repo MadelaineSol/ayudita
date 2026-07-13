@@ -90,3 +90,7 @@ El proyecto nativo Android ya está incluido en `mobile/android`. En Windows, ab
 - [Base de datos y diagrama ER](docs/BASE_DE_DATOS.md)
 - [Seguridad](docs/SEGURIDAD.md)
 - [Flujo de pantallas](docs/PANTALLAS.md)
+
+## Corrección de descarga Gradle
+La versión V2 usa `gradle-8.7-bin.zip`, checksum SHA-256 oficial y timeout ampliado.
+Si hubo una descarga dañada, cierre Android Studio y ejecute `mobile/05_REPARAR_GRADLE.bat`.
